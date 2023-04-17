@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index3";
+}
+
+<h2>Index3</h2>
+
+
+<button id="btnYukle" class="btn btn-success"> Verileri Yükle</button>
+<br />
+<br />
+<input type="text" id="Veri" placeholder="veri giriniz" class="form-control" />
+<br />
+
+<button id="btnYukle2" class="btn btn-success"> Verileri Gönder ve Yükle</button>
+<hr />
+<div id="loading" class="alert alert-warning" style="display:none">Yükleniyor..</div>
+<ul id="liste" class="list-group">
+</ul>
+
+<script>
+    $("#btnYukle").click(function () {
+        $.ajax({
+            method: "GET", url: "/Home/VerileriGetir"
+            , beforeSend: function () {
+                $("#liste").empty();
+                $("#loading").show(300);
+            }
+        }).done(function (sonuc) { $("#liste").html(sonuc); }).fail(function () { alert("hata"); }).always(function () { $("#loading").hide(300); } ) ;
+    });  
+
+</script>
+<script>
+    $("#btnYukle2").click(function () {
+        var veriler = $("#Veri").val();
+        $.ajax({
+            method: "POST"/*method: "GET"*/, url: "/Home/VerileriGetir" //Get yazarsak get post yazarsak post çalışır. Farkı ise get ile veriyi gönderirsek sayfanın url sinde veri gözükür. Postta gözükmez
+            , data: {Veri:veriler}
+            , beforeSend: function () {
+                $("#liste").empty();
+                $("#loading").show(300);
+            }
+        }).done(function (sonuc) { $("#liste").html(sonuc); }).fail(function () { alert("hata"); }).always(function () { $("#loading").hide(300); });
+    }); 
+
+</script>

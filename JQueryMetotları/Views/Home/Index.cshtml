@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<button id="btnYukle" class="btn btn-success"> Verileri Yükle</button>
+<br />
+<br />
+<input type="text" id="Veri" placeholder="veri giriniz" class="form-control" />
+<br/>
+
+<button id="btnYukle2" class="btn btn-success"> Verileri Gönder ve Yükle</button>
+<hr />
+<div id="loading" class="alert alert-warning" style="display:none">Yükleniyor..</div>
+<ul id="liste" class="list-group">
+</ul>
+
+<script>
+    $("#btnYukle").click(function () {//Bunu aslında bir satır kod muş gibi yaptık.
+        // $("#loading").show(300); şimdi buraya da function ekleyip diğerlerini parantez içine alıcam aşağıdaki olayın aynı mantık. Yoksa göremeyiz.
+        $("#liste").empty();
+        $("#loading").show(300, function () {
+
+            $.get("/Home/VerileriGetir"
+                , function (sonuc) {
+                    $("#liste").html(sonuc);
+                    $("#loading").hide(100);//bu parantezin içine aldık parantezlere dikkat
+                });
+        });
+
+
+        //   $("#loading").hide(300); loading burada kalırsa liste daha gösterilmeden loading gösterilir ve kalkar. Bir satırdaki işlemin birmesini beklemeden diğer satıra başlar. Hepsi aynı anda çalışır
+    });
+
+    $("#btnYukle2").click(function () {//Bunu aslında bir satır kod muş gibi yaptık.
+        // $("#loading").show(300); şimdi buraya da function ekleyip diğerlerini parantez içine alıcam aşağıdaki olayın aynı mantık. Yoksa göremeyiz.
+        $("#liste").empty();
+        $("#loading").show(300, function () {
+
+            var textboxdakideger = $("#Veri").val();
+            $.get("/Home/VerileriGetir"
+                , { Veri: textboxdakideger } //veriyi aldık.
+                , function (sonuc) {
+                    $("#liste").html(sonuc);
+                   // $("#loading").hide                                  //Loading gizlenmesini buraya taşıdık her durumda gizle dedik.
+                }).fail(function () { alert("Eğer hata oluşursa bunu yazar.") }).always(function () {$("#loading").hide(100) } );
+        });
+
+
+        //   $("#loading").hide(300); loading burada kalırsa liste daha gösterilmeden loading gösterilir ve kalkar. Bir satırdaki işlemin birmesini beklemeden diğer satıra başlar. Hepsi aynı anda çalışır
+    });
+
+</script>

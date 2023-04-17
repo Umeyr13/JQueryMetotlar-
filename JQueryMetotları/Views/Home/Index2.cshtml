@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<button id="btnYukle" class="btn btn-success"> Verileri Yükle</button>
+
+<div id="loading" class="alert alert-warning" style="display:none">Yükleniyor..</div>
+<ul id="liste" class="list-group">  </ul>
+<br />
+<br />
+<input type="text" id="Veri" placeholder="veri giriniz" class="form-control" />
+<br />
+
+<button id="btnYukle2" class="btn btn-success"> Verileri Gönder ve Yükle</button>
+
+<script>
+    $("#btnYukle").click(function ()
+    {
+        $("#liste").empty();
+        $("#loading").show(300, function () {
+
+            $("#liste").load("/Home/VerileriGetir"
+                , function () { $("#loading").hide(100); }
+            );
+        });
+    });
+
+        $("#btnYukle2").click//Parametre ile veri alırsak "POST ile gönderir."
+        (function ()
+        {
+            $("#liste").empty();
+
+            var textboxdakideger = $("#Veri").val();
+
+            $("#loading").show
+                (300
+                , function ()
+                {
+                    $("#liste").load
+                        ("/Home/VerileriGetir"
+                        , { Veri: textboxdakideger } 
+                        , function () { $("#loading").hide(300); }
+
+                        );
+                });
+
+        });
+
+</script>
