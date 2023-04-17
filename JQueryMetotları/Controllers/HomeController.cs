@@ -36,5 +36,15 @@ namespace JQueryMetotları.Controllers
             System.Threading.Thread.Sleep(2000);
             return PartialView("_PartialPageListe",liste);
         }
+
+        public JsonResult VerileriGetir_Client(string Veri = "")//istersek ayrıda yapabilirdik. default değer vervip bu şekilde if ile yaptık
+        {
+            if (string.IsNullOrEmpty(Veri) == false)
+            {
+                liste.Add(Veri);
+            }
+            System.Threading.Thread.Sleep(2000);
+            return Json(liste,JsonRequestBehavior.AllowGet);//["Teknoloji","Giyim" şeklinde verileri göndericek]
+        }
     }
 }

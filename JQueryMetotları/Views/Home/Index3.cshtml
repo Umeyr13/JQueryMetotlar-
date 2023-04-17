@@ -13,6 +13,8 @@
 <br />
 
 <button id="btnYukle2" class="btn btn-success"> Verileri Gönder ve Yükle</button>
+<br />
+<button id="btnYukle3" class="btn btn-success"> Verileri Client'te Gönder ve Yükle</button>
 <hr />
 <div id="loading" class="alert alert-warning" style="display:none">Yükleniyor..</div>
 <ul id="liste" class="list-group">
@@ -43,4 +45,29 @@
         }).done(function (sonuc) { $("#liste").html(sonuc); }).fail(function () { alert("hata"); }).always(function () { $("#loading").hide(300); });
     }); 
 
+</script>
+
+<script>
+    $("#btnYukle3").click(function ()
+    {
+        var veriler = $("#Veri").val();
+        $.ajax({
+            method: "GET"/*method: "GET"*/, url: "/Home/VerileriGetir_Client" //Get yazarsak get post yazarsak post çalışır. Farkı ise get ile veriyi gönderirsek sayfanın url sinde veri gözükür. Postta gözükmez
+            , data: { Veri: veriler }
+            , beforeSend: function () {
+                $("#liste").empty();
+                $("#loading").show(300);
+            }
+        }).done(function (sonuc)
+        {
+            for (var i in sonuc[i])
+            {
+                var deger = sonuc[i];
+                var li = $("<li class='list-group-item'></li>");
+                li.html(deger);
+                $("#liste ul").append(li);
+            }
+        }).fail(function () { alert("hata"); }).always(function () { $("#loading").hide(300); });
+        //eğer işlem done(gerçekleşir) ise "sonuc = ["Teknoloji","Giyim"...] şeklinde veriler göndericek"
+    }); 
 </script>
