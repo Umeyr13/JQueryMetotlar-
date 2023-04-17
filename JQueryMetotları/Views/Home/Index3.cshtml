@@ -65,7 +65,7 @@
                 var deger = sonuc[i];
                 var li = $("<li class='list-group-item'></li>");
                 li.html(deger);
-                $("#liste ul").append(li);
+                $("#liste").append(li);
             }
         }).fail(function () { alert("hata"); }).always(function () { $("#loading").hide(300); });
         //eğer işlem done(gerçekleşir) ise "sonuc = ["Teknoloji","Giyim"...] şeklinde veriler göndericek"

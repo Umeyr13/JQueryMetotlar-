@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +25,27 @@ namespace JQueryMetotları.Controllers
         public ActionResult Index3()
         {
             return View();
+        }
+
+        public ActionResult Index4()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult DosyaYukle(HttpPostedFileBase dosya)
+        {
+            if (dosya !=null)
+            {
+                if (Directory.Exists(Server.MapPath("~/file")) == false) // Eğer dosya yoksa..
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/file")); // Dosyayı oluştur..
+                }
+
+                dosya.SaveAs(Path.Combine(Server.MapPath("~/file"),dosya.FileName));
+                return Json(new {hata = false});
+            }
+            return Json(new {hata = true});
         }
 
 
