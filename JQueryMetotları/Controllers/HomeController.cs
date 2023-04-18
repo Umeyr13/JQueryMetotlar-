@@ -32,6 +32,12 @@ namespace JQueryMetotları.Controllers
             return View();
         }
 
+        public ActionResult Index5()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public JsonResult DosyaYukle(HttpPostedFileBase file)
         {
