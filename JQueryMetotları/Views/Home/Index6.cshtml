@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index6";
+}
+
+<h2>Yapılacaklar Listesi</h2>
+<hr />
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Planlanan", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("txtVeri")
+        </div>
+
+    </div>
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-2">
+
+                <button class="btn btn-success" id="btnHesap"> Listeye Ekle </button>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                Yapılacaklar
+
+                <ul id="yapılacak">
+                </ul>
+                @*<button class="btn btn-warning btn-sm" id="btnSil" >Seçilenleri Sil</button>*@ @*<CheckBox></CheckBox>*@
+            </div>
+
+            <div class="col-md-6">
+                Tamamlandı
+
+                <ul id="tamamlandı">
+                </ul>
+
+            </div>
+
+            
+           
+        </div>
+  
+
+</div>
+
+<script>
+    $("#btnHesap").click(function ()
+    {
+        if ($("#txtVeri").val() != null &&  $("#txtVeri").val() != "")
+        {
+            var li = $("<li></li>").css("list-style-type","none")
+            li.text($("#txtVeri").val()+" - ");
+            $("#yapılacak").append(li);
+
+            var btn = $("<button class='glyphicon glyphicon-ok'></button>");
+            li.append(btn);
+            var btn2 = $("<button class='glyphicon glyphicon-remove'></button>");
+            li.append(btn2);
+
+            btn.click(function ()
+            {
+                $("#tamamlandı").append(li);
+                btn.hide();
+            })
+            btn2.click(function ()
+            {
+
+                if ($(this).parent().parent()[0].attributes["id"].nodeValue == "tamamlandı")
+                {
+                    $("#yapılacak").append(li);
+                }
+                else
+                {
+                    if (confirm("Silmek istediğinize emin misiniz?"))
+                    {
+                        $(this).parent().remove();
+
+                    }
+                    
+                }
+                    
+                btn.show();
+              
+
+            });
+        }
+        else {
+            alert("Boş Bırakılamaz")
+        }
+    });
+
+
+
+</script>
