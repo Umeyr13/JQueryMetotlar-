@@ -33,19 +33,19 @@ namespace JQueryMetotları.Controllers
         }
 
         [HttpPost]
-        public JsonResult DosyaYukle(HttpPostedFileBase dosya)
+        public JsonResult DosyaYukle(HttpPostedFileBase file)
         {
-            if (dosya !=null)
+            if (file !=null)
             {
                 if (Directory.Exists(Server.MapPath("~/file")) == false) // Eğer dosya yoksa..
                 {
                     Directory.CreateDirectory(Server.MapPath("~/file")); // Dosyayı oluştur..
                 }
 
-                dosya.SaveAs(Path.Combine(Server.MapPath("~/file"),dosya.FileName));
-                return Json(new {hata = false});
+                file.SaveAs(Path.Combine(Server.MapPath("~/file"),file.FileName));
+                return Json(new {hata = false, mesaj="Dosya Yüklendi başka yolu "});
             }
-            return Json(new {hata = true});
+            return Json(new {hata = true, mesaj = "Dosya Yüklenemedi başka yolu " });// Bu şekilde yaparsak index4 te if e gerek kalmaz alert(sonuc.mesaj) olurdu.
         }
 
 

@@ -29,7 +29,7 @@
     $("#btnGonder").click(function ()
     {
         //var dosya = new FormData($("#file"));//id ye göre
-        var dosya = new FormData($("#form")[0] );//0 . yı getir
+        var dosya = new FormData($("form").get(0) );//0 . yı getir
        // var dosya = new FormData($("[name=file]") )// isime göre getir..
 
         $.ajax(
@@ -39,9 +39,10 @@
                 , data: dosya
                 , processData: false // data üzerinde bir işlem proses edilecek mi
                 ,contentType: false // dosya uzantısınırı var mı? pdf,jpg ..
-            }).done(function ()
+            }).done(function (sonuc)//Sonuc kontroler den gelen gelen deger(done olduğunda)
             {
-
+                if (sonuc.hata) { alert("Dosya Yüklenemedi") }
+                else { alert ("Dosya Yüklendi") }
 
             });
 
