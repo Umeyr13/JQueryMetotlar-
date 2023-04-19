@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index7";
+}
+@{
+    SelectListItem[] Secim = new SelectListItem[2]
+    {
+             new SelectListItem() {Text="Evet",Value="E"}
+            ,new SelectListItem(){Text="Hayır",Value="H"}
+    };
+    
+}
+
+<h2>Davetiye</h2>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Ad", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("txtAd")
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Mail", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBox("txtMail")
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+
+             @Html.DropDownList("secim",Secim)
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-8 col-md-offset-2">
+            <button class="btn btn-success" id="btnOnay">Onayla</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-6">
+            <b> Katılanlar - Teşekkür Ederiz..</b>
+            <hr />
+            <ul id="katilanlar">
+                
+            </ul>
+
+        </div>
+
+    </div>
+   
+
+</div>
+
+<script>
+    $("#btnOnay").click(function ()
+    {
+        if ($("#secim").val()=="E")
+        {
+            $.ajax(
+                {
+                    method: "POST", url:"/Home/Katilimcilar"
+                    , data: { ad: $("#txtAd").val() }
+                    , success: function (result)
+                    {
+                        $("#katilanlar").empty();
+                        result.forEach(function (item)
+                            {
+                            
+                            $("#katilanlar").append("<li>" + item + "</li>");
+                            $("#txtAd").val(""); $("#txtMail").val("")
+                            }
+                        
+                        );
+
+                    }
+
+
+                });
+
+        }
+
+    });
+
+    $("#body").click(function () { $("#katilanlar").empty(); } )
+
+
+</script>

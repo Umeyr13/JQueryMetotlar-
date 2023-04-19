@@ -42,6 +42,19 @@ namespace JQueryMetotları.Controllers
             return View();
         }
 
+        public ActionResult Index7()
+        {
+            return View();
+        }
+       static List<string> katilanlar = new List<string>();
+
+        [HttpPost]
+        public JsonResult Katilimcilar(string ad)
+        {
+            katilanlar.Add(ad);
+            return Json(katilanlar);
+        }
+
         [HttpPost]
         public JsonResult DosyaYukle(HttpPostedFileBase file)
         {
@@ -79,4 +92,5 @@ namespace JQueryMetotları.Controllers
             return Json(liste,JsonRequestBehavior.AllowGet);//["Teknoloji","Giyim" şeklinde verileri göndericek]
         }
     }
+
 }
