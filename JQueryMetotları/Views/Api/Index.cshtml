@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<!-- HTML sayfası -->
+<input type="text" id="message" />
+<button id="send">Gönder</button>
+<div id="response"></div>
+
+
+<script>
+    $(document).ready(function() {
+        $("#send").click(function() {
+            var mesaj = $("#message").val();
+            $.ajax({
+                url: "/Api/MesajGonder", // API URL'si
+                type: "POST", // HTTP istek yöntemi
+                data: { mesaj: mesaj }, // API için gerekli parametreler
+                success: function(result) {
+                    // API yanıtı işleniyor
+                    $("#response").text(result.response);
+                }
+            });
+        });
+    });
+</script>
